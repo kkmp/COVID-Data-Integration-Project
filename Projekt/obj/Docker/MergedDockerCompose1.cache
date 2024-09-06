@@ -1,0 +1,98 @@
+networks:
+  backend: {}
+  clean: {}
+  frontend: {}
+services:
+  dbmysql:
+    build:
+      context: C:\Users\Lenovo\Documents\DOCKER\Projekt
+      dockerfile: Projekt/Dockerfile.2
+      labels:
+        com.microsoft.created-by: visual-studio
+        com.microsoft.visual-studio.project-name: Projekt
+    container_name: dbmysql
+    entrypoint: tail -f /dev/null
+    environment:
+      ASPNETCORE_LOGGING__CONSOLE__DISABLECOLORS: "true"
+      DOTNET_USE_POLLING_FILE_WATCHER: '1'
+      MYSQL_ALLOW_EMPTY_PASSWORD: "true"
+      NUGET_FALLBACK_PACKAGES: ''
+    healthcheck:
+      test: exit 0
+    image: dbmysql:dev
+    labels:
+      com.microsoft.visualstudio.debuggee.arguments: ' --additionalProbingPath /root/.nuget/packages  "/app/bin/Debug/net5.0/Projekt.dll"'
+      com.microsoft.visualstudio.debuggee.killprogram: /bin/sh -c "if PID=$$(pidof
+        dotnet); then kill $$PID; fi"
+      com.microsoft.visualstudio.debuggee.program: dotnet
+      com.microsoft.visualstudio.debuggee.workingdirectory: /app
+    networks:
+      backend: {}
+    ports:
+    - published: 3306
+      target: 3306
+    tty: true
+    volumes:
+    - C:\Users\Lenovo\Documents\DOCKER\Projekt\Projekt:/app:rw
+    - C:\Users\Lenovo\vsdbg\vs2017u5:/remote_debugger:rw
+    - C:\Users\Lenovo\AppData\Roaming\ASP.NET\Https:/root/.aspnet/https:ro
+    - C:\Users\Lenovo\AppData\Roaming\Microsoft\UserSecrets:/root/.microsoft/usersecrets:ro
+    - C:\Users\Lenovo\.nuget\packages:/root/.nuget/packages:ro
+    - C:\Users\Lenovo\Documents\DOCKER\Projekt:/src:rw
+  projekt:
+    build:
+      context: C:\Users\Lenovo\Documents\DOCKER\Projekt
+      dockerfile: Projekt/Dockerfile
+      labels:
+        com.microsoft.created-by: visual-studio
+        com.microsoft.visual-studio.project-name: Projekt
+      target: base
+    container_name: projekt
+    depends_on:
+      dbmysql:
+        condition: service_healthy
+    entrypoint: tail -f /dev/null
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_LOGGING__CONSOLE__DISABLECOLORS: "true"
+      ASPNETCORE_URLS: https://+:443;http://+:80
+      DOTNET_USE_POLLING_FILE_WATCHER: '1'
+      NUGET_FALLBACK_PACKAGES: ''
+    image: projekt:dev
+    labels:
+      com.microsoft.visualstudio.debuggee.arguments: ' --additionalProbingPath /root/.nuget/packages  "/app/bin/Debug/net5.0/Projekt.dll"'
+      com.microsoft.visualstudio.debuggee.killprogram: /bin/sh -c "if PID=$$(pidof
+        dotnet); then kill $$PID; fi"
+      com.microsoft.visualstudio.debuggee.program: dotnet
+      com.microsoft.visualstudio.debuggee.workingdirectory: /app
+    networks:
+      backend: {}
+      frontend: {}
+    ports:
+    - target: 80
+    - published: 8080
+      target: 443
+    - target: 443
+    tty: true
+    volumes:
+    - C:\Users\Lenovo\Documents\DOCKER\Projekt\Projekt:/app:rw
+    - C:\Users\Lenovo\vsdbg\vs2017u5:/remote_debugger:rw
+    - C:\Users\Lenovo\AppData\Roaming\ASP.NET\Https:/root/.aspnet/https:ro
+    - C:\Users\Lenovo\AppData\Roaming\Microsoft\UserSecrets:/root/.microsoft/usersecrets:ro
+    - C:\Users\Lenovo\.nuget\packages:/root/.nuget/packages:ro
+    - C:\Users\Lenovo\Documents\DOCKER\Projekt:/src:rw
+  soap:
+    build:
+      context: C:\Users\Lenovo\Documents\DOCKER\Projekt\SoapService
+      dockerfile: Dockerfile
+    container_name: soap
+    depends_on:
+      dbmysql:
+        condition: service_started
+    networks:
+      backend: {}
+      frontend: {}
+    ports:
+    - published: 7779
+      target: 7779
+version: '3.4'

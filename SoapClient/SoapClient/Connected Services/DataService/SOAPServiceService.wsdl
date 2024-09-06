@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<definitions xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsp="http://www.w3.org/ns/ws-policy" xmlns:wsp1_2="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" name="SOAPServiceService" targetNamespace="http://soap/" xmlns="http://schemas.xmlsoap.org/wsdl/">
+  <types>
+    <xsd:schema>
+      <xsd:import schemaLocation="http://localhost:7779/ws/data?xsd=1" namespace="http://jaxb.dev.java.net/array" />
+    </xsd:schema>
+  </types>
+  <message name="getData">
+    <part name="arg0" type="xsd:string" />
+  </message>
+  <message name="getDataResponse">
+    <part xmlns:ns1="http://jaxb.dev.java.net/array" name="return" type="ns1:intArray" />
+  </message>
+  <portType name="SOAPInterface">
+    <operation name="getData">
+      <input wsam:Action="http://soap/SOAPInterface/getDataRequest" message="tns:getData" />
+      <output wsam:Action="http://soap/SOAPInterface/getDataResponse" message="tns:getDataResponse" />
+    </operation>
+  </portType>
+  <binding name="SOAPServicePortBinding" type="tns:SOAPInterface">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="rpc" />
+    <operation name="getData">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" namespace="http://soap/" />
+      </input>
+      <output>
+        <soap:body use="literal" namespace="http://soap/" />
+      </output>
+    </operation>
+  </binding>
+  <service name="SOAPServiceService">
+    <port name="SOAPServicePort" binding="tns:SOAPServicePortBinding">
+      <soap:address location="http://localhost:7779/ws/data" />
+    </port>
+  </service>
+</definitions>

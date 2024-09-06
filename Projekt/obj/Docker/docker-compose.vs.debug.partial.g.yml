@@ -1,0 +1,54 @@
+version: '3.4'
+
+services:
+  dbmysql:
+    image: dbmysql:dev
+    build:
+      labels:
+        com.microsoft.created-by: "visual-studio"
+        com.microsoft.visual-studio.project-name: "Projekt"
+    environment:
+      - DOTNET_USE_POLLING_FILE_WATCHER=1
+      - ASPNETCORE_LOGGING__CONSOLE__DISABLECOLORS=true
+      #- NUGET_FALLBACK_PACKAGES=$container_paths_to_fallback_packages_dbmysql$
+    volumes:
+      - C:\Users\Lenovo\Documents\DOCKER\Projekt\Projekt:/app
+      - C:\Users\Lenovo\Documents\DOCKER\Projekt:/src
+      - C:\Users\Lenovo\vsdbg\vs2017u5:/remote_debugger:rw
+#$nuget_volume_mapping_dbmysql$
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+
+    entrypoint: tail -f /dev/null
+    labels:
+      com.microsoft.visualstudio.debuggee.program: "dotnet"
+      #com.microsoft.visualstudio.debuggee.arguments: " $debuggee_arguments_probing_paths_dbmysql$ \"/app/bin/Debug/net5.0/Projekt.dll\""
+      com.microsoft.visualstudio.debuggee.workingdirectory: "/app"
+      com.microsoft.visualstudio.debuggee.killprogram: "/bin/sh -c \"if PID=$$(pidof dotnet); then kill $$PID; fi\""
+    tty: true
+  projekt:
+    image: projekt:dev
+    build:
+      target: base
+      labels:
+        com.microsoft.created-by: "visual-studio"
+        com.microsoft.visual-studio.project-name: "Projekt"
+    environment:
+      - DOTNET_USE_POLLING_FILE_WATCHER=1
+      - ASPNETCORE_LOGGING__CONSOLE__DISABLECOLORS=true
+      #- NUGET_FALLBACK_PACKAGES=$container_paths_to_fallback_packages_projekt$
+    volumes:
+      - C:\Users\Lenovo\Documents\DOCKER\Projekt\Projekt:/app
+      - C:\Users\Lenovo\Documents\DOCKER\Projekt:/src
+      - C:\Users\Lenovo\vsdbg\vs2017u5:/remote_debugger:rw
+#$nuget_volume_mapping_projekt$
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+
+    entrypoint: tail -f /dev/null
+    labels:
+      com.microsoft.visualstudio.debuggee.program: "dotnet"
+      #com.microsoft.visualstudio.debuggee.arguments: " $debuggee_arguments_probing_paths_projekt$ \"/app/bin/Debug/net5.0/Projekt.dll\""
+      com.microsoft.visualstudio.debuggee.workingdirectory: "/app"
+      com.microsoft.visualstudio.debuggee.killprogram: "/bin/sh -c \"if PID=$$(pidof dotnet); then kill $$PID; fi\""
+    tty: true

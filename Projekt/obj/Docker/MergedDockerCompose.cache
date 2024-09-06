@@ -1,0 +1,57 @@
+networks:
+  backend: {}
+  clean: {}
+  frontend: {}
+services:
+  dbmysql:
+    build:
+      context: C:\Users\Lenovo\Documents\DOCKER\Projekt
+      dockerfile: Projekt/Dockerfile.2
+    container_name: dbmysql
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: "true"
+    healthcheck:
+      test: exit 0
+    networks:
+      backend: {}
+    ports:
+    - published: 3306
+      target: 3306
+  projekt:
+    build:
+      context: C:\Users\Lenovo\Documents\DOCKER\Projekt
+      dockerfile: Projekt/Dockerfile
+    container_name: projekt
+    depends_on:
+      dbmysql:
+        condition: service_healthy
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_URLS: https://+:443;http://+:80
+    image: projekt
+    networks:
+      backend: {}
+      frontend: {}
+    ports:
+    - target: 80
+    - published: 8080
+      target: 443
+    - target: 443
+    volumes:
+    - C:\Users\Lenovo\AppData\Roaming\ASP.NET\Https:/root/.aspnet/https:ro
+    - C:\Users\Lenovo\AppData\Roaming\Microsoft\UserSecrets:/root/.microsoft/usersecrets:ro
+  soap:
+    build:
+      context: C:\Users\Lenovo\Documents\DOCKER\Projekt\SoapService
+      dockerfile: Dockerfile
+    container_name: soap
+    depends_on:
+      dbmysql:
+        condition: service_started
+    networks:
+      backend: {}
+      frontend: {}
+    ports:
+    - published: 7779
+      target: 7779
+version: '3.4'

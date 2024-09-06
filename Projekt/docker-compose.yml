@@ -1,0 +1,49 @@
+version: '3.4'
+
+services:
+  projekt:
+    image: ${DOCKER_REGISTRY-}projekt
+    build:
+      context: .
+      dockerfile: Projekt/Dockerfile
+    container_name: projekt 
+    networks:
+     - backend
+     - frontend
+    ports:
+     - 8080:443
+    depends_on:
+     dbmysql:
+       condition: service_healthy
+
+  dbmysql:
+    build: 
+      context: .
+      dockerfile: Projekt/Dockerfile.2
+    container_name: dbmysql 
+    ports:
+     - "3306:3306"
+    networks:
+     - backend
+    environment:
+     - MYSQL_ALLOW_EMPTY_PASSWORD=true
+    healthcheck:
+     test: "exit 0"
+
+  soap:
+    build:
+     context: ./SoapService/
+     dockerfile: Dockerfile
+    container_name: soap
+    ports:
+      - "7779:7779"
+    networks:
+     - frontend
+     - backend
+    depends_on:
+     - dbmysql
+
+networks:
+  backend:
+  frontend:
+  clean:

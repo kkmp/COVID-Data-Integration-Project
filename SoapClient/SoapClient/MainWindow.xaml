@@ -1,0 +1,29 @@
+﻿<Window x:Class="SoapClient.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SoapClient"
+        mc:Ignorable="d"
+        Title="Daily Total Stats" Height="146" Width="407">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="117*"/>
+            <ColumnDefinition Width="43*"/>
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.ColumnSpan="2">
+            <StackPanel Orientation="Horizontal">
+                <DatePicker SelectedDate="{Binding Date}"></DatePicker>
+                <Button Command="{Binding DataCommand}">Pobierz</Button>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label>Confirmed:</Label>
+                <Label Content="{Binding Confirmed}"></Label>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label>Deaths:</Label>
+                <Label Content="{Binding Deaths}"></Label>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Window>

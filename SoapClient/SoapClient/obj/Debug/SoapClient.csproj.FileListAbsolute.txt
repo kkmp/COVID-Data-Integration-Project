@@ -1,0 +1,16 @@
+C:\Users\Lenovo\Documents\DOCKER\SoapClient\SoapClient\bin\Debug\SoapClient.exe.config
+C:\Users\Lenovo\Documents\DOCKER\SoapClient\SoapClient\bin\Debug\SoapClient.exe
+C:\Users\Lenovo\Documents\DOCKER\SoapClient\SoapClient\bin\Debug\SoapClient.pdb
+C:\Users\Lenovo\Documents\DOCKER\SoapClient\SoapClient\obj\Debug\SoapClient.csproj.AssemblyReference.cache
+C:\Users\Lenovo\Documents\DOCKER\SoapClient\SoapClient\obj\Debug\SoapClient.csproj.SuggestedBindingRedirects.cache
+C:\Users\Lenovo\Documents\DOCKER\SoapClient\SoapClient\obj\Debug\MainWindow.g.cs
+C:\Users\Lenovo\Documents\DOCKER\SoapClient\SoapClient\obj\Debug\App.g.cs
+C:\Users\Lenovo\Documents\DOCKER\SoapClient\SoapClient\obj\Debug\SoapClient_MarkupCompile.cache
+C:\Users\Lenovo\Documents\DOCKER\SoapClient\SoapClient\obj\Debug\SoapClient_MarkupCompile.lref
+C:\Users\Lenovo\Documents\DOCKER\SoapClient\SoapClient\obj\Debug\MainWindow.baml
+C:\Users\Lenovo\Documents\DOCKER\SoapClient\SoapClient\obj\Debug\SoapClient.g.resources
+C:\Users\Lenovo\Documents\DOCKER\SoapClient\SoapClient\obj\Debug\SoapClient.Properties.Resources.resources
+C:\Users\Lenovo\Documents\DOCKER\SoapClient\SoapClient\obj\Debug\SoapClient.csproj.GenerateResource.cache
+C:\Users\Lenovo\Documents\DOCKER\SoapClient\SoapClient\obj\Debug\SoapClient.csproj.CoreCompileInputs.cache
+C:\Users\Lenovo\Documents\DOCKER\SoapClient\SoapClient\obj\Debug\SoapClient.exe
+C:\Users\Lenovo\Documents\DOCKER\SoapClient\SoapClient\obj\Debug\SoapClient.pdb
