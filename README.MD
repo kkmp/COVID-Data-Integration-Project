@@ -33,4 +33,4 @@ Here are some screenshots of the application:
 
 ## Installation
 
-To run the project, you need to open a command prompt and navigate to the main project directory (`Projekt`). Then, issue the command `docker-compose up`. After successfully starting the containers, you can proceed to the applications located in the `Client` and `SoapClient` directories. The easiest way to run them is from within the MS Visual Studio project. Alternatively, you can find the `Client.exe` and `SoapClient.exe` files in the `~\bin\Debug\` folders.
+To run the project, you need to open a command prompt and navigate to the main project directory (`Projekt`). Then, issue the command `docker-compose up`. After successfully starting the containers, you can proceed to the applications located in the `Client` and `SoapClient` directories. The easiest way to run them is from within the MS Visual Studio project. Alternatively, you can compile it manually and find the `Client.exe` and `SoapClient.exe` files in the `~\bin\Debug\` folders.
